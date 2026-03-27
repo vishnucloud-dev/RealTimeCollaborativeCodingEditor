@@ -198,3 +198,12 @@ app.post("/run", async (req, res) => {
 // =====================================================
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+import path from "path";
+
+const __dirname = new URL('.', import.meta.url).pathname;
+
+app.use(express.static(path.join(__dirname, "../client/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
